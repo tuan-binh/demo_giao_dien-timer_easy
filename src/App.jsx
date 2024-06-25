@@ -1,3 +1,4 @@
+import InputChange from './pages/InputChange';
 import TimerEasy from './pages/TimerEasy';
 import UserManage from './pages/UserManage';
 
@@ -5,9 +6,10 @@ function App() {
   const now = new Date();
   return (
     <>
-      <UserManage />
-      {now.toLocaleTimeString()}
+      {/* <UserManage />
+      {now.toLocaleTimeString()} */}
       {/* <TimerEasy /> */}
+      <InputChange />
     </>
   );
 }

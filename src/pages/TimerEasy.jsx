@@ -25,8 +25,8 @@ function TimerEasy() {
   // lifting state up
   /**
    *        component cha
-   *        |           \
-   * component con 1    component con 2
+   *        /           \
+   * component con 1   component con 2
    *
    */
   return (
