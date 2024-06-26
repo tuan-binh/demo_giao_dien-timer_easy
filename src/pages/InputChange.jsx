@@ -2,7 +2,8 @@ import { useState } from 'react';
 
 function InputChange() {
   const [data, setData] = useState([]);
-
+  const [dataEdit, setDataEdit] = useState(null);
+  const [indexUpdate, setIndexUpdate] = useState(-1);
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('before ', data);
@@ -17,19 +18,47 @@ function InputChange() {
     setData(newData);
   };
 
+  const viewEdit = (index) => {
+    console.log(index);
+    let dataEdit = data[index];
+    setDataEdit(dataEdit);
+    setIndexUpdate(index);
+  };
+
+  const handleChangeDataEdit = (e) => setDataEdit(e.target.value);
+
+  const handleEdit = (e) => {
+    e.preventDefault();
+    const newData = [...data];
+    newData[indexUpdate] = dataEdit;
+    setData(newData);
+    setDataEdit('');
+    setIndexUpdate(-1);
+  };
+
   return (
     <>
-      {console.log('after ', data)}
-      <form action="" onSubmit={handleSubmit}>
-        <input type="text" name="search" id="" placeholder="search" />
-        <input type="submit" />
-      </form>
-      {data.map((item, index) => (
-        <li key={index}>
-          {item} <i className="fa-solid fa-pen"></i>{' '}
-          <i onClick={() => handleDelete(index)} className="fa-solid fa-trash"></i>
-        </li>
-      ))}
+      {indexUpdate >= 0 ? (
+        <form action="" onSubmit={handleEdit}>
+          <input type="text" value={dataEdit} onChange={handleChangeDataEdit} />
+          <input type="submit" value="UPDATE" />
+        </form>
+      ) : (
+        <form action="" onSubmit={handleSubmit}>
+          <input type="text" name="search" />
+          <input type="submit" value="ADD" />
+        </form>
+      )}
+
+      <ul>
+        {data.map((item, index) => (
+          <li key={index}>
+            {item}
+            <i onClick={() => viewEdit(index)} className="fa-solid fa-pen"></i>
+            <i onClick={() => handleDelete(index)} className="fa-solid fa-trash"></i>
+          </li>
+        ))}
+      </ul>
     </>
   );
 }
